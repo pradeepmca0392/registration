@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h3>Registration Form</h3>
+</head>
+<body>
+<script>
+function validateform(){
+	var user = document.myform.user.value;
+	var email = document.myform.email.value;
+	var pass1 = document.myform.password1.value;
+	var pass2 = document.myform.password2.value;
+	var response_val = true;
+
+	if(user == null || user == ""){
+		document.getElementById('username_err').innerHTML = "User can't be blank";
+		response_val = false;
+	} else{
+		document.getElementById('username_err').innerHTML = "";
+	}
+
+	if(email == null || email == ""){
+		document.getElementById('email_err').innerHTML = "Email Address can't be blank";
+		response_val = false;
+	} else{
+		document.getElementById('email_err').innerHTML = "";
+	}
+
+	if(pass1 == null || pass1 == ""){
+		document.getElementById('pass1_err').innerHTML = "Password1 can't be blank";
+		response_val = false;
+	} else if(pass1.length<6){
+		document.getElementById('pass1_err').innerHTML = "Password1 must be at least 6 character";
+		response_val = false;
+	} else{
+		document.getElementById('pass1_err').innerHTML = "";
+	}
+
+
+	if(pass2 == null || pass2 == ""){
+		document.getElementById('pass2_err').innerHTML = "Password2 can't be blank";
+		response_val = false;
+	} else if(pass2 != pass1){
+		document.getElementById('pass2_err').innerHTML = "Password2 should be same as password1";
+		response_val = false;
+	} else{
+		document.getElementById('pass2_err').innerHTML = "";
+	}
+
+	if(response_val == true){
+		return ture;
+	}else{
+		return false;
+	}
+
+
+}
+</script>
+
+<form name="myform" method="POST" action="" onsubmit="return(validateform());">
+    {% csrf_token %}
+    username: <input type="text" name="user"> <span id="username_err"></span><br>
+    email: <input type="email" name="email"> <span id="email_err"></span><br>
+    password1: <input type="password" name="password1"><span id="pass1_err"></span><br>
+    password2: <input type="password" name="password2"><span id="pass2_err"></span><br><br><br>
+    <input type="submit" value="register">
+</form>
+
+</body>
+</html>
